@@ -1,0 +1,11 @@
+monitor_targets:
+ - type: "port"
+   host: "127.0.0.1"
+   port: 22
+ - type: "port"
+   host: "127.0.0.1"
+   port: 3306
+ - type: "http"
+   url: "https://www.baidu.com"
+ - type: "http"
+   url: "https://www.baidu.com/not-exist-page"
