@@ -9,3 +9,29 @@ monitor_targets:
    url: "https://www.baidu.com"
  - type: "http"
    url: "https://www.baidu.com/not-exist-page"
+
+log_analysis:
+  enabled: true
+  log_files:
+    - "C:\ Windows\ INF\ setupapi.dev.log"
+  error_patterns:
+    - "error"
+    - "failed"
+    - "exception"
+    - "denied"
+
+alert:
+  email:
+    enabled: true
+    smtp:
+      host: "smtp.qq.com"
+      port: 465
+      sender: ""
+      password: ""
+      receivers: ""
+  dingtalk:
+    enabled: false
+    webhook_url: "https://oapi.dingtalk.com/robot/send?access_token=YOUR_TOKEN"
+
+schedule:
+  interval_minutes: 5 #每五分钟执行一次
