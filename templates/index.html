@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>服务器监控面板</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, "Microsoft YaHei", sans-serif; background: #f0f2f5; padding: 20px; }
+        h1 { color: #1a1a1a; margin-bottom: 20px; }
+        h2 { color: #333; margin: 20px 0 10px; }
+        .card { background: #fff; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #eee; font-size: 14px; }
+        th { background: #fafafa; color: #555; font-weight: 600; }
+        .status-up { color: #10b981; font-weight: bold; }
+        .status-down { color: #ef4444; font-weight: bold; }
+        .badge { display: inline-block; padding: 3px 8px; border-radius: 12px; font-size: 12px; font-weight: 600; }
+        .badge-up { background: #d1fae5; color: #065f46; }
+        .badge-down { background: #fee2e2; color: #991b1b; }
+    </style>
+</head>
+<body>
+    <h1>🖥️ 服务器监控面板</h1>
+
+    <div class="card">
+        <h2>📊 最近系统指标</h2>
+        <table>
+            <tr>
+                <th>时间</th>
+                <th>主机名</th>
+                <th>CPU 使用率</th>
+                <th>内存使用率</th>
+                <th>磁盘使用率</th>
+                <th>网络发送(字节)</th>
+                <th>网络接收(字节)</th>
+            </tr>
+            {% for m in metrics %}
+            <tr>
+                <td>{{ m[1] }}</td>
+                <td>{{ m[2] }}</td>
+                <td>{{ m[3] }}%</td>
+                <td>{{ m[4] }}%</td>
+                <td>{{ m[5] }}%</td>
+                <td>{{ m[6] }}</td>
+                <td>{{ m[7] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>🔍 最近健康检查</h2>
+        <table>
+            <tr>
+                <th>时间</th>
+                <th>目标</th>
+                <th>类型</th>
+                <th>状态</th>
+                <th>详情</th>
+            </tr>
+            {% for c in checks %}
+            <tr>
+                <td>{{ c[1] }}</td>
+                <td>{{ c[2] }}</td>
+                <td>{{ c[3] }}</td>
+                <td>
+                    {% if c[4] == "UP" %}
+                        <span class="badge badge-up">UP</span>
+                    {% else %}
+                        <span class="badge badge-down">DOWN</span>
+                    {% endif %}
+                </td>
+                <td style="font-size:12px; color:#666;">{{ c[5][:120] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>
